@@ -6,6 +6,15 @@ import "../styles/mapLayout.css";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+await fetch(`${API_URL}/routes`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(routeDoc),
+});
+
+
 export default function MapView() {
   const mapContainer = useRef(null);
   const map = useRef(null);

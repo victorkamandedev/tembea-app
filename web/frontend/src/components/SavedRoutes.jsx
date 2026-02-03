@@ -8,7 +8,7 @@ export default function SavedRoutes({ loadRoute }) {
   // Fetch all routes from backend
   const fetchRoutes = async () => {
     try {
-      const res = await fetch("http://localhost:5000/routes");
+      const res = await fetch(`${API_URL}/routes`);
       const data = await res.json();
       setRoutes(data);
     } catch (err) {
@@ -26,7 +26,7 @@ export default function SavedRoutes({ loadRoute }) {
   const deleteRoute = async (id) => {
     if (!window.confirm("Are you sure you want to delete this route?")) return;
     try {
-      await fetch(`http://localhost:5000/routes/${id}`, {
+      await fetch(`${API_URL}/routes/${id}`, {
         method: "DELETE",
       });
       // Refresh routes list

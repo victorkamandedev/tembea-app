@@ -259,7 +259,8 @@ body {
   cursor: pointer;
   font-size: 0.85rem;
   transition: background 0.2s, color 0.2s;
-  width: auto;
+  width: auto !important;
+  min-width: 36px;
   margin: 0;
   flex-shrink: 0;
 }

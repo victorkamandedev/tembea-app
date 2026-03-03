@@ -26,6 +26,14 @@ export default function MapView() {
       center: [36.8219, -1.2921],
       zoom: 12,
     });
+    
+    // the + / − zoom buttons, a compass reset button and locate me button
+    map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    map.current.addControl(new mapboxgl.GeolocateControl({
+  positionOptions: { enableHighAccuracy: true },
+  trackUserLocation: false,
+}), 'top-right');
+
 
     map.current.on("load", () => {
       map.current.addSource("route", {

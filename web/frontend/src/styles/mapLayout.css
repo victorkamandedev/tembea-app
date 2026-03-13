@@ -1,5 +1,6 @@
 /* =============================================
    TEMBEA – Map Layout & Controls
+============================================= */
 
 *,
 *::before,
@@ -28,7 +29,7 @@ body {
 
 /* =============================================
    APP LAYOUT
-   Desktop: map left, sidebar right
+   Default (desktop / landscape): map left, sidebar right
    ============================================= */
 .app-layout {
   display: flex;
@@ -80,7 +81,7 @@ body {
 }
 
 /* =============================================
-   SIDEBAR
+   SIDEBAR — desktop / landscape
    ============================================= */
 .sidebar {
   width: 320px;
@@ -267,42 +268,83 @@ body {
 .route-card__delete:hover { background: #fee2e2; color: #dc2626; }
 
 /* =============================================
-   MOBILE — stack map on top, sidebar below
+   PORTRAIT MOBILE — Google Maps-style bottom sheet
+   Triggers on: phone-sized screens in portrait orientation.
+   Landscape phones & tablets keep the sidebar layout above.
    ============================================= */
-@media (max-width: 768px) {
+@media (max-width: 768px) and (orientation: portrait) {
   .app-layout {
     flex-direction: column;
     height: 100dvh;
+    overflow: hidden;
   }
 
+  /* Map dominates — tall enough to actually use */
   .map-section {
-    flex: 0 0 55vh;
-    min-height: 280px;
+    flex: 0 0 62dvh;
+    min-height: 300px;
+    position: relative;
   }
 
   .map-container {
+    width: 100%;
     height: 100%;
   }
 
+  /* Bottom sheet — rounded corners, elevated card feel */
   .sidebar {
     width: 100%;
     flex: 1;
+    min-height: 0;
     border-left: none;
-    border-top: 1px solid #e2e8f0;
+    border-top: none;
     overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
+    background: #fff;
+    margin-top: -16px;   /* overlaps map edge slightly, like Google Maps */
+    position: relative;
+    z-index: 10;
   }
 
+  /* Drag handle pill (visual cue) */
+  .sidebar::before {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 4px;
+    background: #d1d5db;
+    border-radius: 2px;
+    margin: 10px auto 4px;
+  }
+
+  /* Buttons go horizontal to save vertical space */
   .map-controls {
     flex-direction: row;
     flex-wrap: wrap;
+    padding: 8px 12px 12px;
+    gap: 6px;
   }
 
   .map-controls-hint {
     width: 100%;
+    font-size: 0.75rem;
   }
 
   .map-btn {
     flex: 1;
-    min-width: 100px;
+    min-width: 90px;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .saved-routes {
+    padding: 8px 12px 24px;
+  }
+
+  .route-info-bar {
+    font-size: 0.78rem;
+    padding: 6px 12px;
+    gap: 12px;
   }
 }
